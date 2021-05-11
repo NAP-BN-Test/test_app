@@ -37,7 +37,7 @@ function act_getListVideoFromChannel(
     await Services.getListVideoFromChannel(chanelID, papeToken, searchKey).then(
       async (res: any) => {
         console.log(res);
-
+        
         await dispatch(getListVideoFromChannel(res));
       }
     );
@@ -50,8 +50,6 @@ function act_getListtblAccount() {
   return async (dispatch: any) => {
     await Services.getListtblAccount().then(
       async (res: any) => {
-        console.log(res, 1234);
-
         await dispatch(getListtblAccount(res));
       }
     );

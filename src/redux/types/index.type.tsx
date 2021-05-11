@@ -16,6 +16,7 @@ export interface Account {
   email: string;
   urlImg: string;
   userID: string;
+  id: number;
 }
 
 export interface Playlist {
