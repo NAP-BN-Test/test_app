@@ -21,17 +21,17 @@ const InfoAdminUser = () => {
     toggleGetListTBLAccount();
   }, []);
   async function deleteTblAccount(id: any) {
-    return axios
-      .post(`${URL}/delete_tbl_account`, {id: id})
+    axios
+      .post(`${URL}/delete_tbl_account`, { id: id })
       .then((res) => {
         return res.data;
       })
       .catch((err) => {
         console.log(err);
       })
-    }
-  console.log(arrayAccount);
-  
+    return toggleGetListTBLAccount()
+  }
+
   async function toggleGetListTBLAccount() {
     setIsLoading(true);
     await dispatch(
@@ -45,7 +45,21 @@ const InfoAdminUser = () => {
       return (
         <View style={{ marginVertical: SIZES.base }}>
           <ScrollView>
-            <Swipeout right={swipeoutBtns}>
+            <Swipeout right={[
+              {
+                text: 'Xóa',
+                backgroundColor: '#FA5858',
+                // underlayColor: '#000000',
+
+                onPress: () => {
+                  console.log(item);
+
+                  deleteTblAccount(item.id)
+                },
+                color: '#000000'
+              }
+
+            ]}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Image
                   source={{
@@ -56,14 +70,14 @@ const InfoAdminUser = () => {
                 />
 
                 <View style={{ flex: 1, marginLeft: SIZES.radius }}>
-                    <Button icon="account-check-outline" color="tomato" style={{ paddingLeft: "1%"}}>
-                        <Text style={styles.textColor}>{item.name}</Text>
-                    </Button>
-                    <Button icon="email-multiple-outline" color="tomato">
-                        <Text style={styles.textColor}>{item.email}</Text>
-                    </Button>
-                    <Button icon="account-convert-outline" color="tomato">
-                      <Text style={styles.textColor}>Đang hoạt động</Text>
+                  <Button icon="account-check-outline" color="tomato" style={{ paddingLeft: "1%" }}>
+                    <Text style={styles.textColor}>{item.name}</Text>
+                  </Button>
+                  <Button icon="email-multiple-outline" color="tomato">
+                    <Text style={styles.textColor}>{item.email}</Text>
+                  </Button>
+                  <Button icon="account-convert-outline" color="tomato">
+                    <Text style={styles.textColor}>Đang hoạt động</Text>
                   </Button>
                 </View>
               </View>
@@ -104,32 +118,6 @@ const InfoAdminUser = () => {
       </View>
     )
   }
-  var swipeoutBtns = [
-    // {
-    //   text: 'Sửa',
-    //   backgroundColor: '#F7D358',
-    //   // underlayColor: '#000000',
-
-    //   onPress: () => { _handlePD() },
-    //   autoClose: true,
-    //   // color: '#000000'
-    //   // disabled: true, // vô hiệu hóa nút
-    // },
-    {
-      text: 'Xóa',
-      backgroundColor: '#FA5858',
-      // underlayColor: '#000000',
-
-      onPress: () => { 
-        console.log();
-        
-        deleteTblAccount(1) 
-      },
-      autoClose: true,
-      color: '#000000'
-    }
-
-  ]
   return (
     <ScrollView>
       <View style={{ marginTop: '10%' }}>
